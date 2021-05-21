@@ -152,7 +152,6 @@ archive_all() {
   while read -d $'\0' directory; do
     directory="$(basename -- $(printf '%q' ${directory}) )"
     archive $directory
-    # . ./dev_archive.sh --type=${TYPE} --period=${PERIOD} --keep=${KEEP} ${directory}
   done < <( find ${TYPE_DIRECTORY} -maxdepth 1 -mindepth 1 -type d -print0 )
 }
 
