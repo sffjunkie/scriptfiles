@@ -70,16 +70,16 @@ eval set -- "${TEMP}"
 ALL=0
 
 while true ; do
-	case "$1" in
+  case "$1" in
     -h|--help) help; exit 0 ;;
-		-a|--all) ALL=1; shift;;
+    -a|--all) ALL=1; shift;;
     -k|--keep) _KEEP=$2; shift; shift ;;
     -o|--output) OUTPUT_DIRECTORY=$2; shift; shift ;;
     -p|--period) PERIOD=$2; shift; shift ;;
-		-t|--type) TYPE=$2; shift; shift ;;
-		-v|--verbose) VERBOSE=1; shift;;
-		*) shift; break ;;
-	esac
+    -t|--type) TYPE=$2; shift; shift ;;
+    -v|--verbose) VERBOSE=1; shift;;
+    *) shift; break ;;
+  esac
 done
 
 mkdir -p ${OUTPUT_DIRECTORY}
