@@ -89,14 +89,14 @@ case "${TYPE}" in
   *)
     echo "Unknown item type '${TYPE}'. It must be one of 'project' or 'gist'"
     exit 1
-esac    
+esac
 
 case "${PERIOD}" in
   day|week|month) ;;
   *)
     echo "Unknown period '${PERIOD}'. It must be one of 'day', 'week' or 'month'"
     exit 1
-esac    
+esac
 
 TYPE_DIRECTORY=${DEV_DIRECTORY}/${TYPE}
 
