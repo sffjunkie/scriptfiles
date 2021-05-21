@@ -25,7 +25,8 @@ help() {
   echo "  -p | --period   The period this backup is for either 'day', 'week' or 'month'"
   echo "                  Where 'week' creates an archive for the ISO week number in the current year"
   echo "                  The default period is 'day'"
-  echo "  -t | --type     The type of item to archive either 'project' or 'gist'"
+  echo "  -t | --type     The type of item to archive either 'project' or 'gist'."
+  echo "                  The default type is 'project'"
   echo "  -v | --verbose  Verbose mode"
 }
 
