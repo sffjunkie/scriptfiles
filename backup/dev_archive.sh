@@ -19,6 +19,7 @@ help() {
   echo
   echo "options:"
   echo "  -h | --help     Show this help text"
+  echo "  -a | --all      Whether to process all items"
   echo "  -k | --keep     The number of previous archives to keep"
   echo "  -o | --output   Directory to output archives to. The directory is created if it doesn't exist"
   echo "  -p | --period   The period this backup is for either 'day', 'week' or 'month'"
@@ -50,7 +51,7 @@ prune() {
   fi
 }
 
-TEMP=$(getopt --options 'hk:o:p:t:v' --longoptions 'help,keep:,output:,period:,type:,verbose:' -- "$@")
+TEMP=$(getopt --options 'hak:o:p:t:v' --longoptions 'help,all,keep:,output:,period:,type:,verbose:' -- "$@")
 
 if [[ ${#} -eq 0 ]]; then
    help
@@ -65,10 +66,12 @@ eval set -- "${TEMP}"
 [[ "${KEEP}" == "" ]] && KEEP=5
 [[ "${VERBOSE}" == "" ]] && VERBOSE=0
 [[ "${OUTPUT_DIRECTORY}" == "" ]] && OUTPUT_DIRECTORY=${DEV_DIRECTORY}/archive
+ALL=0
 
 while true ; do
 	case "$1" in
     -h|--help) help; exit 0 ;;
+		-a|--all) ALL=1; shift;;
     -k|--keep) _KEEP=$2; shift; shift ;;
     -o|--output) OUTPUT_DIRECTORY=$2; shift; shift ;;
     -p|--period) PERIOD=$2; shift; shift ;;
@@ -153,7 +156,7 @@ archive_all() {
 }
 
 # if no items specified then archive all
-if [[ $# == 0 ]]; then
+if [[ ${ALL} -eq 1 ]]; then
   echo "Archiving all ${TYPE}s"
   archive_all
 else
