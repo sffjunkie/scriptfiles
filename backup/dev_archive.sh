@@ -52,7 +52,7 @@ prune() {
   fi
 }
 
-TEMP=$(getopt --options 'hak:o:p:t:v' --longoptions 'help,all,keep:,output:,period:,type:,verbose:' -- "$@")
+TEMP=$(getopt --options 'hae:k:o:p:t:v' --longoptions 'help,all,exclude:,keep:,output:,period:,type:,verbose:' -- "$@")
 
 if [[ ${#} -eq 0 ]]; then
    help
@@ -67,12 +67,14 @@ eval set -- "${TEMP}"
 [[ "${KEEP}" == "" ]] && KEEP=5
 [[ "${VERBOSE}" == "" ]] && VERBOSE=0
 [[ "${OUTPUT_DIRECTORY}" == "" ]] && OUTPUT_DIRECTORY=${DEV_DIRECTORY}/archive
+EXCLUDE_FILE=
 ALL=0
 
 while true ; do
   case "$1" in
     -h|--help) help; exit 0 ;;
     -a|--all) ALL=1; shift;;
+    -e|--exclude) EXCLUDE_FILE=$2; shift; shift ;;
     -k|--keep) _KEEP=$2; shift; shift ;;
     -o|--output) OUTPUT_DIRECTORY=$2; shift; shift ;;
     -p|--period) PERIOD=$2; shift; shift ;;
@@ -135,10 +137,13 @@ archive() {
   esac
 
   [[ ${VERBOSE} ==  1 ]] && echo "Archiving ${TYPE} ${item} => ${ARCHIVE_FILE}"
-  [[ ${VERBOSE} ==  1 ]] && [ -f ${ARCHIVE_FILE} ] && echo "Archive ${ARCHIVE_FILE} already exists, overwriting"
+  declare -a arglist
+  [[ "$EXCLUDE_FILE" != "" ]] && [[ -f ${EXCLUDE_FILE} ]] && \
+    arglist+=("--exclude-from=${EXCLUDE_FILE}") || \
+    echo "warn: Exclude file ${EXCLUDE_FILE} not found"
 
-  tar \
-    --exclude-from=./ignore \
+  eval tar \
+    "${arglist[@]}" \
     --zstd \
     --create \
     --file=${ARCHIVE_FILE} \
