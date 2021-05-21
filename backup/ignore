@@ -1,0 +1,10 @@
+node_modules
+bower_components
+__pycache__
+.DS_Store
+.*cache
+.venv
+.mypy_cache
+.pytest_cache
+bin
+obj
