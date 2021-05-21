@@ -98,17 +98,6 @@ case "${PERIOD}" in
     exit 1
 esac    
 
-# declare -a ITEMS
-# # ITEM='@'
-# for arg in "$@"; do
-#   echo ${arg}
-#   if [[ '$arg' != '--' ]]; then
-#     ITEMS+=("$arg")
-#   fi
-# done
-# echo ${#ITEMS[@]}
-# echo ${ITEMS[@]:0:2}
-
 TYPE_DIRECTORY=${DEV_DIRECTORY}/${TYPE}
 
 DATE_DAILY="$(date +%Y-%m-%d)"
