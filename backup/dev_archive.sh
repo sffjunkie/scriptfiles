@@ -155,7 +155,6 @@ archive_all() {
   done < <( find ${TYPE_DIRECTORY} -maxdepth 1 -mindepth 1 -type d -print0 )
 }
 
-# if no items specified then archive all
 if [[ ${ALL} -eq 1 ]]; then
   echo "Archiving all ${TYPE}s"
   archive_all
