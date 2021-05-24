@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu
 
 # Creates archives of dev projects and gists
 
@@ -138,6 +139,8 @@ archive() {
   esac
 
   [[ ${VERBOSE} ==  1 ]] && echo "Archiving ${TYPE} ${item} => ${ARCHIVE_FILE}"
+  [[ ${VERBOSE} ==  1 ]] && [ -f ${ARCHIVE_FILE} ] && echo "info: Archive ${ARCHIVE_FILE} already exists, overwriting"
+
   declare -a arglist
   [[ "$EXCLUDE_FILE" != "" ]] && [[ -f ${EXCLUDE_FILE} ]] && \
     arglist+=("--exclude-from=${EXCLUDE_FILE}") || \
