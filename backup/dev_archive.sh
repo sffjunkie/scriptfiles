@@ -20,6 +20,7 @@ help() {
   echo "options:"
   echo "  -h | --help     Show this help text"
   echo "  -a | --all      Whether to process all items"
+  echo "  -e | --exclude  File containing file patters to ignore"
   echo "  -k | --keep     The number of previous archives to keep"
   echo "  -o | --output   Directory to output archives to. The directory is created if it doesn't exist"
   echo "  -p | --period   The period this backup is for either 'day', 'week' or 'month'"
